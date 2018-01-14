@@ -1,4 +1,4 @@
-package com.vorh.custom_class_loader;
+package com.vorh.custom_class_loader.simple;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -9,6 +9,11 @@ import java.io.InputStream;
  */
 public class CustomClassLoader extends ClassLoader{
 
+
+    public CustomClassLoader(ClassLoader classLoader) {
+        super(classLoader);
+    }
+
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
         byte[] bytes = loadClassData(name);
@@ -16,8 +21,9 @@ public class CustomClassLoader extends ClassLoader{
     }
 
     private byte[] loadClassData(String name) {
-        System.out.println("Loading of class: " + name);
-        InputStream is = getClass().getClassLoader().getResourceAsStream(name.replace(".","/")+".class");
+        String url = name.replace(".","/")+".class";
+        System.out.println("Loading of class: " + name + " url: " +url);
+        InputStream is = getClass().getClassLoader().getResourceAsStream(url);
 
         ByteArrayOutputStream bytesClass = new ByteArrayOutputStream();
 

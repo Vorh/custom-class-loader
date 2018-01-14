@@ -1,4 +1,4 @@
-package com.vorh.custom_class_loader;
+package com.vorh.custom_class_loader.simple;
 
 /**
  * Created by vorh on 1/14/18.

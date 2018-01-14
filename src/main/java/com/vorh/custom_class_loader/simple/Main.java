@@ -1,4 +1,4 @@
-package com.vorh.custom_class_loader;
+package com.vorh.custom_class_loader.simple;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,17 +9,14 @@ import java.lang.reflect.Method;
 public class Main {
 
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+        ClassLoader classLoader = Main.class.getClassLoader();
 
-        Class<?> test = Main.class.getClassLoader().loadClass("com.vorh.custom_class_loader.Test");
-        TestSuperClass testSuperClass = (TestSuperClass) test.newInstance();
-        testSuperClass.show();
-
-//        loadInterface(new CustomClassLoader());
-        loadClass(new CustomClassLoader());
+        loadInterface(new CustomClassLoader(classLoader));
+        loadClass(new CustomClassLoader(classLoader));
     }
 
     private static void loadInterface(CustomClassLoader customClassLoader) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        Class<?> c = customClassLoader.findClass("com.vorh.custom_class_loader.Test");
+        Class<?> c = customClassLoader.findClass("com.vorh.custom_class_loader.simple.Test");
         TestInterface ob = (TestInterface) c.newInstance();
         ob.show();
 
@@ -29,7 +26,7 @@ public class Main {
     }
 
     private static void loadClass(CustomClassLoader classLoader) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        Class<?> c = classLoader.findClass("com.vorh.custom_class_loader.Test");
+        Class<?> c = classLoader.findClass("com.vorh.custom_class_loader.simple.Test");
         TestSuperClass ob = (TestSuperClass) c.newInstance();
 
         System.out.println(ob.getClass());
